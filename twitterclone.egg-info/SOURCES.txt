@@ -1,0 +1,12 @@
+README.md
+setup.py
+twitterclone/__init__.py
+twitterclone/asgi.py
+twitterclone/settings.py
+twitterclone/urls.py
+twitterclone/wsgi.py
+twitterclone.egg-info/PKG-INFO
+twitterclone.egg-info/SOURCES.txt
+twitterclone.egg-info/dependency_links.txt
+twitterclone.egg-info/requires.txt
+twitterclone.egg-info/top_level.txt

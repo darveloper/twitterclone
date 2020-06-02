@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'tweet',
     'notification',
     'authentification',
+    'twitter',
 ]
 
 MIDDLEWARE = [
@@ -70,6 +71,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'twitteruser.Account'
 
 WSGI_APPLICATION = 'twitterclone.wsgi.application'
 
