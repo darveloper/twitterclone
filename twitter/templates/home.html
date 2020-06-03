@@ -1,18 +1,81 @@
-<head>
-    {% if request.user.is_authenticated %}
-        <p><a href="{% url 'home' %}">Home</a> | <a href="{% url 'logout'%}">Logout</a></p>
-        <p>Hello, {{request.user.username }}</p>
-    {% else %}
-        <p>
-        <a href="{% url 'home' %}">Home</a> | 
-        <a href="{% url 'register'%}">Register</a> | 
-        <a href="{% url 'login' %}">Login</a></p>
-    {% endif %}
-    <title>Twitter</title>
-</head>
+{% extends 'base.html' %}
 
+{% block content %}
+<style type="text/css">
+@media (max-width: 768px) { 
+		.right-column{
+			margin-left: 0px;
+		}
+	}
 
-<h3>Registered Users</h3>
-{% for account in accounts %}
-    <p>{{account}}</p>
-{% endfor %}
+	@media (min-width: 768px) { 
+		.right-column{
+			margin-left: 20px;
+		}
+	}
+
+	.blog-post-container{
+		background-color: #fff;
+		margin-bottom: 20px;
+		width: 100%;
+	}
+	.create-post-bar{
+		background-color: #fff;
+		margin-bottom:20px;
+	}
+
+	.left-column{
+		padding:0px;
+	}
+
+	.right-column{
+		padding:0px;
+	}
+</style>
+
+<div class="container">
+    <div class="row">
+        <!--Create Post Bar-->
+        <div class="create-post-bar d-lg-none col-lg-7 offset-lg-1">
+            <a href="{% url 'tweet:create' %}">Create post</a>
+        </div>
+        <!--End Create Post Bar-->
+
+        <!--Twitter Feed-->
+        <div class="left-column col-lg-7 offset-lg-1">
+            <div class="blog-post-container">
+				<p>Thingy</p>
+			</div>
+			
+			<div class="blog-post-container">
+				<p>Thingy</p>
+			</div>
+
+			<div class="blog-post-container">
+				<p>Thingy</p>
+			</div>
+
+			<div class="blog-post-container">
+				<p>Thingy</p>
+			</div>
+        </div>
+        <!--End Twitter Feed-->
+        
+        <!--Create Post-->
+        <div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+            <div class="create-post-bar">
+				<p>Stuff</p>
+				<p>Stuff</p>
+				<p>Stuff</p>
+				<p><a href="{% url 'tweet:create' %}">Create post</a></p>
+			</div>
+        </div>
+    <!--End Create Post-->
+        {% comment %} <h3>Registered Users</h3>
+        {% for account in accounts %}
+            <p>{{account}}</p>
+        {% endfor %} {% endcomment %}
+    </div>
+</div>
+
+{% endblock %}

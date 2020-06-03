@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css">
+    .card{
+        max-width: 700px;
+    }
+    .container{
+        padding: 20px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="card m-auto">
+            <div class="card-body my-2">
+                <p class="card-text">{{tweet.body|safe}}</p>
+            </div>
+            <div class="card-footer text-muted">
+                Published: {{tweet.date_published}} by {{tweet.auhor}}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
