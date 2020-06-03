@@ -16,7 +16,7 @@
             <div class="card-body my-2">
                 <p class="card-text">{{tweet.body|safe}}</p>
                 {% if tweet.author == request.user %}
-                    <a href="{% url 'tweet:edit' tweet.slug %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'tweet:edit' tweet.slug %}" class="btn btn-outline-dark small"><small>Update</small></a>
                 {% endif %}
             </div>
             <div class="card-footer text-muted">

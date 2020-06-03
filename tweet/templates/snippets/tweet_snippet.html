@@ -1,0 +1,32 @@
+<style type="text/css">
+	.card{
+		max-width: 700px;
+	}
+	.card-body{
+		padding: 20px;
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+
+		<!-- tweet Post -->
+		<div class="card m-auto">
+			<a href="{% url 'tweet:detail' post.slug %}">
+			</a>
+			
+			<div class="card-body mt-2 mb-2">
+				<a href="{% url 'tweet:detail' post.slug %}">
+					<h2 class="card-title">{{tweet.title}}</h2>
+				</a>
+				<p class="card-text">{{tweet.body|truncatechars:180}}</p>
+				{% if tweet.author == request.user %}
+					<a href="{% url 'tweet:edit' tweet.slug %}" class="btn btn-primary">Update</a>
+				{% endif %}
+			</div>
+			<div class="card-footer text-muted">
+			  Updated on {{tweet.date_updated}} by {{tweet.author}}
+			</div>
+		</div>
+	</div>
+</div>

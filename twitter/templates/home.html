@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <style type="text/css">
-@media (max-width: 768px) { 
+
+	@media (max-width: 768px) { 
 		.right-column{
 			margin-left: 0px;
 		}
@@ -14,8 +16,7 @@
 		}
 	}
 
-	.blog-post-container{
-		background-color: #fff;
+	.tweet-post-container{
 		margin-bottom: 20px;
 		width: 100%;
 	}
@@ -31,51 +32,52 @@
 	.right-column{
 		padding:0px;
 	}
+	.lead{
+		font-size: 17px;
+	}
 </style>
-
 <div class="container">
-    <div class="row">
-        <!--Create Post Bar-->
-        <div class="create-post-bar d-lg-none col-lg-7 offset-lg-1">
-            <a href="{% url 'tweet:create' %}">Create post</a>
-        </div>
-        <!--End Create Post Bar-->
+	<div class="row">
 
-        <!--Twitter Feed-->
-        <div class="left-column col-lg-7 offset-lg-1">
-            <div class="blog-post-container">
-				<p>Thingy</p>
-			</div>
-			
-			<div class="blog-post-container">
-				<p>Thingy</p>
-			</div>
+		<!-- tweet feed -->
+		<div class="left-column col-lg-7 offset-lg-1">
 
-			<div class="blog-post-container">
-				<p>Thingy</p>
+			<!-- Top 'create post' bar -->
+			<div class="d-lg-none mb-3">
+				<div class="card m-auto d-flex flex-column p-3">
+					<p class="lead">I learned to build a simple twitter clone with user registration and blog CRUD functionality. Django is a powerful
+                    framework!
+                    </p>
+					<p class="m-auto"><a class="btn btn-primary" href="{% url 'tweet:create' %}">Create post</a></p>
+				</div>
 			</div>
+			<!-- end Top 'create post' bar -->
 
-			<div class="blog-post-container">
-				<p>Thingy</p>
+			<!-- tweet posts-->
+			{% for post in tweets %}
+				<div class="tweet-post-container">
+					{% include 'snippets/tweet_snippet.html' with tweet=post %}
+				</div>
+			{% endfor %}
+			<!-- End tweet posts-->
+		</div>
+		<!-- end tweet feed -->
+
+
+		<!-- Right 'create post' column  -->
+		<div class="right-column col-lg-3 d-lg-flex d-none flex-column">
+
+			<div class="card create-post-bar d-flex flex-column p-3">
+				
+				<p class="lead">I learned to build a simple twitter clone with user registration and blog CRUD functionality. Django is a powerful
+                    framework!</p>
+				<p class="m-auto"><a class="btn btn-primary" href="{% url 'tweet:create' %}">Create post</a></p>
 			</div>
-        </div>
-        <!--End Twitter Feed-->
-        
-        <!--Create Post-->
-        <div class="right-column col-lg-3 d-lg-flex d-none flex-column">
-            <div class="create-post-bar">
-				<p>Stuff</p>
-				<p>Stuff</p>
-				<p>Stuff</p>
-				<p><a href="{% url 'tweet:create' %}">Create post</a></p>
-			</div>
-        </div>
-    <!--End Create Post-->
-        {% comment %} <h3>Registered Users</h3>
-        {% for account in accounts %}
-            <p>{{account}}</p>
-        {% endfor %} {% endcomment %}
-    </div>
+		
+		</div>
+		<!-- end Right 'create post' column  -->
+
+	</div>
 </div>
 
-{% endblock %}
+{% endblock content %}
