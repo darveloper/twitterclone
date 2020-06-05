@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>{{ request.user.username }}</h2>
+<form class='form' method='POST' action='{% url "follow" %}'>{% csrf_token %}
+<input type='hidden' name='username' value='{% if username %}{{ username }}{% else %}darveloper{% endif %}'/>
+<button class='btn btn-primary'>Follow</button>
+</form>
+
+    
+<div class="container mt-4 p-4">
+    <div class="row">
+        <div class="tweets">
+            <h3 class="h3 mb-3 font-weight-normal">Tweets:</h3>
+            {% if tweets %}
+            <ul>
+                {% for tweetle in tweets %}
+                <a href="{% url 'tweet:detail' tweetle.slug %}" style="text-decoration: none;">
+                    <li class="list-group-item">{{tweetle}}</li>
+                </a>
+            {% endfor %}
+            </ul>
+            {% else %}
+            <p>You have no tweets. Create a post <a href="{% url 'tweet:create' %}">here</a>.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

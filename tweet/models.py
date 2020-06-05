@@ -19,3 +19,4 @@ def pre_save_tweet_receiver(sender, instance, **kwargs):
     if not instance.slug:
         instance.slug = slugify(instance.author.username + "-" + instance.body)
 pre_save.connect(pre_save_tweet_receiver, sender=Tweet)
+

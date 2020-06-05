@@ -1,5 +1,12 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.conf import settings
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, User
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
+from django.db.models.signals import post_save
+
+
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, email, username, password=None):
@@ -53,3 +60,23 @@ class Account(AbstractBaseUser):
     
     def has_module_perms(self, app_label):
         return True
+    
+User = settings.AUTH_USER_MODEL
+class Profile_Model(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    followers = models.ManyToManyField(User, related_name='is_following', blank=True)
+    #following = models.ManyToManyField(User, related_name='following', blank=True)
+    activated = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username
+
+def post_save_user_receiver(sender, instance, created, *args, **kwargs):
+    if created:
+        profile, is_created = Profile_Model.objects.get_or_create(user=instance)
+        default_user_profile = Profile_Model.objects.get_or_create(user__id=1)[0]
+        default_user_profile.followers.add(instance)
+        profile.followers.add(default_user_profile.user)
+        profile.followers.add(2)
+
+post_save.connect(post_save_user_receiver, sender=User)

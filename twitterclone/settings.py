@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'authentification',
     'twitter',
 ]
-
+AUTH_USER_MODEL = 'twitteruser.Account'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-AUTH_USER_MODEL = 'twitteruser.Account'
+
 
 WSGI_APPLICATION = 'twitterclone.wsgi.application'
 
@@ -125,3 +125,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/profile'

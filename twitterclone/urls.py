@@ -15,14 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls import url
 from twitter import views
 from twitteruser.views import (
     registration_view,
     logout_view,
     login_view,
     must_authenticate_view,
-    account_view
+    account_view,
+    Profile,
+    ProfileFollowToggle,
+    
+    
 )
+
+app_name = 'twitteruser'
 
 urlpatterns = [
     path('', views.home_view, name='home'),
@@ -32,7 +39,11 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('must_authenticate/', must_authenticate_view, name='must_authenticate'),
     path('register/', registration_view, name='register'),
-    path('tweet/', include('tweet.urls', 'tweet'))
+    path('tweet/', include('tweet.urls', 'tweet')),
+    url(r'^user/(?P<username>[A-Za-z0-9]+)/$', Profile, name='profile'),
+    url(r'^follow/$', ProfileFollowToggle.as_view(), name='follow'),
+    
+    
     
     
 ]

@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from tweet.models import Tweet
 from tweet.forms import CreateTweetForm, UpdateTweetPostForm
 from twitteruser.models import Account
+from django.contrib.auth.models import User
+
 
 def create_tweet_view(request):
     context = {}
@@ -53,3 +55,4 @@ def edit_tweet_view(request, slug):
         )
     context['form'] = form
     return render(request, 'edit_tweet.html', context)
+

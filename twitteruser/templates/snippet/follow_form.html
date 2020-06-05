@@ -1,0 +1,8 @@
+{% comment %} {% extends 'base.html' %}
+
+{% block content %}
+<form class='form' method='POST' action='{% url "follow" %}'>
+<input type='hidden' name='username' value='{% if username %}{{ username }}{% else %}darveloper{% endif %}'/>
+<button class='btn btn-primary'>Follow</button>
+</form>
+{% endblock %} {% endcomment %}

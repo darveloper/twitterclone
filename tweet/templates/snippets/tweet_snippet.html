@@ -25,7 +25,7 @@
 				{% endif %}
 			</div>
 			<div class="card-footer text-muted">
-			  Updated on {{tweet.date_updated}} by {{tweet.author}}
+			  Updated on {{tweet.date_updated}} by <a href="{% url 'profile' tweet.author %}">{{tweet.author}}</a>
 			</div>
 		</div>
 	</div>

@@ -1,7 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, authenticate, logout
+from django.http import HttpResponseRedirect
 from twitteruser.forms import RegistrationForm, AccountAuthenticationForm, AccountUpdateForm
 from tweet.models import Tweet
+from twitteruser.models import Account
+from django.contrib.auth.models import User
+from django.views.generic import View
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 def registration_view(request):
     context = {}
@@ -32,6 +38,7 @@ def login_view(request):
     user = request.user
     if user.is_authenticated:
         return redirect('home')
+
     if request.POST:
         form = AccountAuthenticationForm(request.POST)
         if form.is_valid():
@@ -82,3 +89,21 @@ def account_view(request):
 	context['tweets'] = tweets
 
 	return render(request, "account.html", context)
+
+
+def Profile(request, username=""):
+    context = {}
+    
+    author = Account.objects.get(username=username)
+    
+    tweets = Tweet.objects.filter(author=author)
+    context["tweets"] = tweets
+    context["author"] = author
+    return render(request, 'profile.html', context)
+
+class ProfileFollowToggle(View):
+    def post(self, request, *args, **kwargs):
+
+        print(request.POST)
+        return HttpResponseRedirect("/")
+
